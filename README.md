@@ -25,3 +25,19 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+npm new readizonia
+
+ng g m shared
+ng g m shared/material
+
+npm install --save @angular/material @angular/cdk
+npm install --save @angular/animations
+
+//Some components (mat-slide-toggle, mat-slider, matTooltip) rely on HammerJS for gestures. In order to get the full feature-set of these components, HammerJS must be loaded into the application.
+npm install --save hammerjs
+
+css - @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+//<link href="node_modules/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
+
+_------_
