@@ -1,0 +1,17 @@
+<div class="tablaMaterial">
+  <diV class="filaEncabezado">
+    <div
+      *ngFor="let titulo of columnas; let i = index"
+      class="elementoEncabezado pointer"
+    >
+      <span>{{ titulo }}</span>
+    </div>
+  </diV>
+  <diV class="contenidoTabla">
+    <div *ngFor="let elemento of datos" class="filaContenido">
+      <div *ngFor="let atributo of modelos" class="elementoContenido">
+        <span>{{ getPropiedad(elemento, atributo) }}</span>
+      </div>
+    </div>
+  </diV>
+</div>

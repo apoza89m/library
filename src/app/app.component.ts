@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
+import { LibroService } from './services/libro.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,14 @@ import { SharedModule } from './shared/shared.module';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'readizonia';
+  title = 'Readizonia';
+
+  tituloMenu!: string;
+
+  constructor(private libroService: LibroService) {
+    console.log('Bienvenido');
+    this.libroService.tituloWeb.subscribe(
+      (nuevoTitulo) => (this.tituloMenu = nuevoTitulo)
+    );
+  }
 }

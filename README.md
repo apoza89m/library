@@ -41,3 +41,24 @@ css - @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 //<link href="node_modules/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
 
 _------_
+
+Routes:
+ng g m modules/usuario --routing
+ng g m modules/libreria --routing
+
+Interfaces:
+ng g i interfaces/Libro
+ng g i interfaces/Autor
+
+Services:
+ng g s services/libreriaManagement
+
+Tabla:
+ng g c shared/tablaGenerica
+
+Pipe:
+ng g p shared/pipes/addPunto
+
+Directives:
+ng g d shared/directives/convierteInput
+ng g d shared/directives/decoraEtiqueta
