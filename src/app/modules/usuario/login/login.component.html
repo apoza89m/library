@@ -1,0 +1,54 @@
+<h4 *ngIf="sesionIniciada">La sesion ya esta iniciada</h4>
+<button
+  *ngIf="sesionIniciada"
+  mat-raised-button
+  color="accent"
+  (click)="cierraSesion()"
+>
+  Salir
+</button>
+<h4 *ngIf="!sesionIniciada">No logueado</h4>
+
+<form *ngIf="!sesionIniciada" [formGroup]="formularioLogin">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      placeholder="ejemplo@email.com"
+      required
+    />
+    <mat-error *ngIf="formularioLogin.get('email')?.hasError('required')"
+      >El campo es obligatorio</mat-error
+    ><mat-error *ngIf="formularioLogin.get('email')?.hasError('email')"
+      >El campo no es un email</mat-error
+    >
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-label>Enter your password</mat-label>
+    <input
+      matInput
+      formControlName="password"
+      placeholder="password"
+      type="password"
+      required
+    />
+  </mat-form-field>
+  <br />
+  <button
+    mat-flat-button
+    [disabled]="!formularioLogin.valid"
+    (click)="iniciaSesion()"
+  >
+    Iniciar sesion
+  </button>
+  <button mat-flat-button color="secondary" (click)="formularioLogin.reset()">
+    Resetear
+  </button>
+</form>
+<hr />
+<pre>
+  {{ formularioLogin.value | json }}
+  ¿Es valido? {{ formularioLogin.valid }}
+</pre>

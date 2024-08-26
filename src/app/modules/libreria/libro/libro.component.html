@@ -1,0 +1,51 @@
+<div class="clear"></div>
+<div class="card-container">
+  <mat-card>
+    <!-- libro.title | addPunto -->
+    <mat-card-title appDecoraEtiqueta>{{
+      libro.title | addPunto
+    }}</mat-card-title>
+    <mat-card-subtitle>Autor: {{ libro.author.name }}</mat-card-subtitle>
+    <mat-card-subtitle
+      [ngStyle]="{ color: libro.pages < 500 ? 'red' : 'green' }"
+      >Páginas: {{ libro.pages }}</mat-card-subtitle
+    >
+    <mat-card-subtitle>Genero: {{ libro.genre }}</mat-card-subtitle>
+
+    <img
+      *ngIf="libro.cover"
+      mat-card-image
+      [src]="libro.cover"
+      alt="Portada de {{ libro.title }}"
+    />
+    <mat-card-subtitle>Año: {{ libro.year }}</mat-card-subtitle>
+    <mat-card-subtitle>ISBN: {{ libro.ISBN }}</mat-card-subtitle>
+    <!-- ng-container permite tener una etiqueta para condicionales e invocar ng-temnplate-->
+    <mat-card-actions class="actions">
+      <ng-container *ngIf="modoElegido === 'Compra'; else botonesAdmin">
+        <button mat-raised-button color="primary" (click)="comprar()">
+          Comprar
+        </button>
+      </ng-container>
+      <ng-template #botonesAdmin
+        ><button mat-raised-button color="primary" (click)="addToFavorites()">
+          Añadir
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="removeFromFavorites()"
+        >
+          Quitar
+        </button>
+        <button mat-raised-button color="accent" (click)="editar()">
+          Editar
+        </button>
+        <button mat-raised-button color="warn" (click)="borrar()">
+          Borrar
+        </button>
+      </ng-template>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div class="clear"></div>

@@ -1,0 +1,114 @@
+<div class="form-container">
+  <form [formGroup]="formularioCreacion">
+    <mat-form-field appearance="fill">
+      <mat-label>Titulo:</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Introduce titulo"
+        required
+        appConversionInput="upper"
+      />
+      <mat-error *ngIf="formularioCreacion.get('title')?.hasError('required')"
+        >El campo es obligatorio</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Paginas:</mat-label>
+      <input
+        matInput
+        formControlName="pages"
+        placeholder="Introduce numero de páginas"
+        required
+        type="number"
+      />
+      <mat-error *ngIf="formularioCreacion.get('pages')?.hasError('required')"
+        >El campo es obligatorio</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Genero:</mat-label>
+      <input
+        matInput
+        formControlName="genre"
+        placeholder="Introduce genero"
+        required
+      />
+      <mat-error *ngIf="formularioCreacion.get('genre')?.hasError('required')"
+        >El campo es obligatorio</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cover: </mat-label>
+      <input matInput formControlName="cover" placeholder="Introduce URL" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Synopsis:</mat-label>
+      <input
+        matInput
+        formControlName="synopsis"
+        placeholder="Introduce synopsis"
+        required
+      />
+      <mat-error
+        *ngIf="formularioCreacion.get('synopsis')?.hasError('required')"
+        >El campo es obligatorio</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Año:</mat-label>
+      <input
+        matInput
+        formControlName="year"
+        placeholder="Introduce año"
+        required
+        type="number"
+      />
+      <mat-error *ngIf="formularioCreacion.get('year')?.hasError('required')"
+        >El campo es obligatorio</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>ISBN:</mat-label>
+      <input
+        matInput
+        formControlName="ISBN"
+        placeholder="Introduce ISBN"
+        required
+      />
+      <mat-error *ngIf="formularioCreacion.get('ISBN')?.hasError('required')"
+        >El campo es obligatorio</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Autor:</mat-label>
+      <input
+        matInput
+        formControlName="author"
+        placeholder="Introduce autor"
+        required
+      />
+    </mat-form-field>
+    <br />
+
+    <button mat-flat-button (click)="registraLibro()">Registrar</button>
+    <button
+      mat-flat-button
+      color="secondary"
+      (click)="formularioCreacion.reset()"
+    >
+      Resetear
+    </button>
+  </form>
+</div>
+<pre>
+  {{ formularioCreacion.value | json }}
+  ¿Es valido? {{ formularioCreacion.valid }}
+</pre>

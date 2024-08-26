@@ -1,0 +1,57 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer mode="side" opened position="end">
+    <app-favoritos></app-favoritos>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button mat-icon-button class="example-icon" (click)="drawer.toggle()">
+      <mat-icon>favorites</mat-icon>
+    </button>
+    <p>El modo actual es: {{ modoElegido }}</p>
+    <button mat-raised-button color="primary" (click)="modoElegido = 'Compra'">
+      Compra
+    </button>
+    <button mat-raised-button color="primary" (click)="cambiarModo('Admin')">
+      Administracion
+    </button>
+    <button mat-raised-button color="primary" (click)="borraCookie()">
+      Borrar cookie
+    </button>
+    <hr />
+
+    <div *ngIf="modoElegido === 'Compra'">
+      <p>Carrito:</p>
+      <ul>
+        <li *ngFor="let libro of librosComprados">{{ libro.title }}</li>
+      </ul>
+      <p>Cantidad: {{ carrito.cantidadLibros }}</p>
+      <button mat-raised-button color="primary" (click)="vaciarCarrito()">
+        Vaciar
+      </button>
+    </div>
+
+    <div *ngIf="modoElegido === 'Admin'">
+      <p>Cantidad de libros: {{ libros.length }}</p>
+      <p>Cantidad de favoritos: {{ librosFavoritos.length }}</p>
+    </div>
+
+    <hr />
+    <br />
+
+    <h4 *ngIf="!libros">Cargando libros de simulacro...</h4>
+    <div class="card-container">
+      <app-libro
+        *ngFor="let libroIterado of libros"
+        [libro]="libroIterado"
+        (notificacionCompra)="libroCompradoRecibido(libroIterado)"
+        [modoElegido]="modoElegido"
+      ></app-libro>
+    </div>
+    <br />
+    <h3>Lista de libros</h3>
+    <app-tabla-generica
+      [datos]="libros"
+      [columnas]="columnas"
+      [modelos]="modelos"
+    ></app-tabla-generica>
+  </mat-drawer-content>
+</mat-drawer-container>

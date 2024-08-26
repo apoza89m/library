@@ -1,15 +1,26 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Libro } from '../interfaces/libro';
+import { library } from '../../../public/books.json';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LibroService {
+export class LibroService implements OnInit, OnDestroy {
   private librosBaseDatos: Libro[] = [];
   private defaultLibros: Libro[] = [];
+  private librosFavoritos: Libro[] = [];
+  private librosFavoritosSubject = new BehaviorSubject<Libro[]>(
+    this.librosFavoritos
+  );
 
   miLibroFavorito: string = 'Ejemplo de libro favorito';
 
@@ -19,10 +30,19 @@ export class LibroService {
   ) {
     this.initializeDefaultLibros();
     this.loadLibrosFromStorage();
+    this.loadFavoritosFromStorage();
+  }
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
   }
 
   borraCookie(): void {
     localStorage.removeItem('misLibros');
+    localStorage.removeItem('misFavoritos');
     this.loadLibrosFromStorage();
     window.location.reload();
     this._snackBar.open('Cookie borrada', 'Cerrar', {
@@ -57,6 +77,27 @@ export class LibroService {
     }
   }
 
+  private loadFavoritosFromStorage(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const favoritosCookie = localStorage.getItem('misFavoritos');
+      if (favoritosCookie) {
+        try {
+          this.librosFavoritos = JSON.parse(favoritosCookie);
+          if (!Array.isArray(this.librosFavoritos)) {
+            throw new Error('Parsed data is not an array');
+          }
+          this.librosFavoritosSubject.next(this.librosFavoritos);
+        } catch (e) {
+          console.error('Error parsing favoritos from localStorage:', e);
+        }
+      }
+    }
+  }
+
+  private saveFavoritosToStorage(): void {
+    localStorage.setItem('misFavoritos', JSON.stringify(this.librosFavoritos));
+  }
+
   recuperarLibros(): Observable<Libro[]> {
     return new Observable((observer) => {
       setTimeout(() => {
@@ -82,6 +123,8 @@ export class LibroService {
       setTimeout(() => {
         const indiceLibroModificar: number =
           this.librosBaseDatos.indexOf(libroOriginal);
+        libroModificado.author =
+          this.librosBaseDatos[indiceLibroModificar].author;
         this.librosBaseDatos[indiceLibroModificar] = libroModificado;
         localStorage.setItem('misLibros', JSON.stringify(this.librosBaseDatos));
         observer.next(libroModificado);
@@ -94,8 +137,8 @@ export class LibroService {
     return new Observable((observer) => {
       setTimeout(() => {
         const indice: number = this.librosBaseDatos.indexOf(libro);
-        if (indice !== 1) {
-          this.librosBaseDatos.splice(indice, 1); //(posicion,cantidad elementos)
+        if (indice !== -1) {
+          this.librosBaseDatos.splice(indice, 1); //(posicion, cantidad elementos)
           localStorage.setItem(
             'misLibros',
             JSON.stringify(this.librosBaseDatos)
@@ -128,13 +171,9 @@ export class LibroService {
     }
   }
 
-  //-COLECCION-//
-  private librosFavoritos: Libro[] = [];
-  private librosFavoritosSubject = new BehaviorSubject<Libro[]>(
-    this.librosFavoritos
-  );
+  //--FAVORITOS--//
 
-  getFavoritos() {
+  recuperarFavoritos(): Observable<Libro[]> {
     return this.librosFavoritosSubject.asObservable();
   }
 
@@ -142,12 +181,14 @@ export class LibroService {
     if (!this.librosFavoritos.includes(libro)) {
       this.librosFavoritos.push(libro);
       this.librosFavoritosSubject.next(this.librosFavoritos);
+      this.saveFavoritosToStorage(); // Guardar favoritos en localStorage
     }
   }
 
   removeFavorito(libro: Libro) {
     this.librosFavoritos = this.librosFavoritos.filter((l) => l !== libro);
     this.librosFavoritosSubject.next(this.librosFavoritos);
+    this.saveFavoritosToStorage(); // Guardar favoritos en localStorage
   }
 
   //-AUTHOR-//
@@ -165,14 +206,14 @@ export class LibroService {
     localStorage.setItem('misLibros', JSON.stringify(this.librosBaseDatos));
   }
 
-  //buscar un libro por el nombre del autor
+  // Buscar un libro por el nombre del autor
   findLibroByAuthorName(authorName: string): Libro | undefined {
     return this.librosBaseDatos.find(
       (libro) => libro.author.name === authorName
     );
   }
 
-  //actualizar el array `otherBooks` de un autor
+  // Actualizar el array `otherBooks` de un autor
   updateOtherBooks(authorName: string, bookTitle: string): Observable<void> {
     return new Observable((observer) => {
       setTimeout(() => {

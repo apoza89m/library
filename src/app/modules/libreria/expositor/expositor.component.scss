@@ -1,0 +1,26 @@
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2vw;
+  flex: auto;
+}
+
+button {
+  margin: 1vh;
+}
+
+.example-icon {
+  position: absolute;
+  right: 10px;
+  margin-right: 14px;
+}
+
+mat-drawer {
+  height: 93vh;
+  width: 25vw;
+  padding-top: 2vh;
+  background-color: whitesmoke;
+}

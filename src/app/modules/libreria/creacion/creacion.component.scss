@@ -1,0 +1,17 @@
+form {
+  width: 25vw;
+}
+mat-form-field {
+  display: block;
+  margin-bottom: 1vh;
+}
+mat-slider {
+  width: 200px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Altura completa de la ventana */
+}

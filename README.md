@@ -28,6 +28,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 npm new readizonia
 
+ng add @angular/material
+
 ng g m shared
 ng g m shared/material
 
@@ -62,3 +64,15 @@ ng g p shared/pipes/addPunto
 Directives:
 ng g d shared/directives/convierteInput
 ng g d shared/directives/decoraEtiqueta
+
+Guards:
+ng g g guards/auth
+
+Components:
+ng g c modules/usuario/login
+ng g c modules/libreria/libro
+ng g c modules/libreria/expositor
+ng g c modules/libreria/creacion
+ng g c modules/libreria/edicion
+
+ng build

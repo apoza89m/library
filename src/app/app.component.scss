@@ -1,0 +1,38 @@
+h1 {
+  text-align: center;
+}
+
+.titulo {
+  cursor: pointer;
+  font-weight: bold;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.example-icon {
+  margin: 0 14px;
+}
+.example.container {
+  margin-left: 12px;
+}
+
+mat-toolbar {
+  height: 7vh;
+  background-color: lightblue;
+}
+mat-drawer {
+  height: 93vh;
+  width: 10vw;
+  padding-top: 2vh;
+  background-color: whitesmoke;
+}
+mat-drawer-content {
+  height: 93vh;
+  padding: 2vw;
+}
+
+.elementoBarra {
+  border-bottom: 2px solid black;
+  padding: 12px 24px;
+  cursor: pointer;
+}

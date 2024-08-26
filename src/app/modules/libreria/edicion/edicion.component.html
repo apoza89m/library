@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>Edicion de {{ libro.title }}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="formularioEdicion">
+    <mat-form-field appearance="fill">
+      <mat-label>Titulo:</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="{{ libro.title }}"
+        appConversionInput="upper"
+      />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="fill">
+      <mat-label>Paginas:</mat-label>
+      <input
+        matInput
+        formControlName="pages"
+        placeholder="{{ libro.pages }}"
+        type="number"
+      />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="fill">
+      <mat-label>Genero:</mat-label>
+      <input matInput formControlName="genre" placeholder="{{ libro.genre }}" />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cover: </mat-label>
+      <input matInput formControlName="cover" placeholder="{{ libro.cover }}" />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="fill">
+      <mat-label>Synopsis:</mat-label>
+      <input
+        matInput
+        formControlName="synopsis"
+        placeholder="{{ libro.synopsis }}"
+      />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="fill">
+      <mat-label>Año:</mat-label>
+      <input
+        matInput
+        formControlName="year"
+        placeholder="{{ libro.year }}"
+        type="number"
+      />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="fill">
+      <mat-label>ISBN:</mat-label>
+      <input matInput formControlName="ISBN" placeholder="{{ libro.ISBN }}" />
+    </mat-form-field>
+    <br />
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" (click)="onNoClick()">Cancelar</button>
+  <button mat-button cdkFocusInitial color="warn" (click)="onSiClick()">
+    Guardar
+  </button>
+</mat-dialog-actions>

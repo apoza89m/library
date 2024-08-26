@@ -1,0 +1,14 @@
+<h4>Favoritos</h4>
+<hr />
+<div class="coleccion-container">
+  <div *ngFor="let libro of librosFavoritos" class="coleccion-item">
+    <img [src]="libro.cover" [alt]="libro.title" class="cover-image" />
+    <button
+      mat-icon-button
+      class="remove-button"
+      (click)="removeFavorito(libro)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
